@@ -1,62 +1,74 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from "tailwindcss";
 
 /**
- * Semantic color tokens for the design system.
+ * Design token system for consistent theming.
  *
- * Each semantic role (primary, secondary, surface, error, warning, success, info)
- * exposes a `DEFAULT` value plus light/dark variants. Components should reference
- * these tokens (e.g. `bg-primary`, `text-error-dark`) instead of raw color values
- * so brand updates and dark mode stay consistent across the app.
+ * Brand colours, font sizes, spacing, and border radii are defined here and
+ * exposed as CSS custom properties (see `:root` in `frontend/app/globals.css`).
+ * Tailwind `extend` values reference those custom properties so a rebrand only
+ * requires updating the variables in one place.
+ *
+ * See docs/guides/design-tokens.md for usage guidance.
  */
-const semanticColors = {
-  primary: {
-    DEFAULT: '#2563eb',
-    light: '#3b82f6',
-    dark: '#1d4ed8',
-  },
-  secondary: {
-    DEFAULT: '#7c3aed',
-    light: '#8b5cf6',
-    dark: '#6d28d9',
-  },
-  surface: {
-    DEFAULT: '#ffffff',
-    light: '#f8fafc',
-    dark: '#0f172a',
-  },
-  error: {
-    DEFAULT: '#dc2626',
-    light: '#ef4444',
-    dark: '#b91c1c',
-  },
-  warning: {
-    DEFAULT: '#d97706',
-    light: '#f59e0b',
-    dark: '#b45309',
-  },
-  success: {
-    DEFAULT: '#16a34a',
-    light: '#22c55e',
-    dark: '#15803d',
-  },
-  info: {
-    DEFAULT: '#0891b2',
-    light: '#06b6d4',
-    dark: '#0e7490',
-  },
-} as const;
-
 const config: Config = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./lib/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        ...semanticColors,
+        primary: {
+          DEFAULT: "var(--color-primary)",
+          foreground: "var(--color-primary-foreground)",
+        },
+        secondary: {
+          DEFAULT: "var(--color-secondary)",
+          foreground: "var(--color-secondary-foreground)",
+        },
+        accent: {
+          DEFAULT: "var(--color-accent)",
+          foreground: "var(--color-accent-foreground)",
+        },
+        success: "var(--color-success)",
+        warning: "var(--color-warning)",
+        danger: "var(--color-danger)",
+        background: "var(--color-background)",
+        surface: "var(--color-surface)",
+        border: "var(--color-border)",
+        muted: {
+          DEFAULT: "var(--color-muted)",
+          foreground: "var(--color-muted-foreground)",
+        },
+        foreground: "var(--color-foreground)",
+      },
+      fontSize: {
+        xs: ["var(--font-size-xs)", { lineHeight: "var(--line-height-xs)" }],
+        sm: ["var(--font-size-sm)", { lineHeight: "var(--line-height-sm)" }],
+        base: ["var(--font-size-base)", { lineHeight: "var(--line-height-base)" }],
+        lg: ["var(--font-size-lg)", { lineHeight: "var(--line-height-lg)" }],
+        xl: ["var(--font-size-xl)", { lineHeight: "var(--line-height-xl)" }],
+        "2xl": ["var(--font-size-2xl)", { lineHeight: "var(--line-height-2xl)" }],
+        "3xl": ["var(--font-size-3xl)", { lineHeight: "var(--line-height-3xl)" }],
+        "4xl": ["var(--font-size-4xl)", { lineHeight: "var(--line-height-4xl)" }],
+      },
+      spacing: {
+        xs: "var(--space-xs)",
+        sm: "var(--space-sm)",
+        md: "var(--space-md)",
+        lg: "var(--space-lg)",
+        xl: "var(--space-xl)",
+        "2xl": "var(--space-2xl)",
+        "3xl": "var(--space-3xl)",
+      },
+      borderRadius: {
+        sm: "var(--radius-sm)",
+        DEFAULT: "var(--radius-md)",
+        md: "var(--radius-md)",
+        lg: "var(--radius-lg)",
+        xl: "var(--radius-xl)",
+        full: "var(--radius-full)",
       },
     },
   },
